@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerPatient } from './api';
+import { registerPatient } from '../api';
 
 function Register() {
     const [patient, setPatient] = useState({

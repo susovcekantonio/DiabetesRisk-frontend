@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
-import axios from 'axios'; // Import axios
-import { saveMedicalRecord, getGPTResponse, getAzureResponse } from './api';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
-function MedicalRecord() {
-    const { patientId } = useParams();
+function NewMedicalRecord() {
+    const { patientId } = useAuth();
     const [medicalRecord, setMedicalRecord] = useState({
         gender: '',
         age: '',
@@ -21,20 +21,7 @@ function MedicalRecord() {
     });
     const [gptResponse, setGptResponse] = useState('');
     const [azureResponse, setAzureResponse] = useState('');
-    const navigate = useNavigate(); // Hook to navigate
-
-    useEffect(() => {
-        const fetchMedicalRecord = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8080/api/patient/medical-record/${patientId}`);
-                setMedicalRecord(response.data);
-            } catch (error) {
-                console.error('Error fetching medical record:', error);
-            }
-        };
-
-        fetchMedicalRecord();
-    }, [patientId]);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -44,8 +31,11 @@ function MedicalRecord() {
 
     const handleSave = async () => {
         try {
-            await saveMedicalRecord(localStorage.getItem('patientId'), medicalRecord);
+            await axios.post(`http://localhost:8080/api/patient/${patientId}/medicalrecord/save`, medicalRecord, {
+                headers: { 'Content-Type': 'application/json' }
+            });
             alert('Medical record saved successfully');
+            navigate('/home'); // Redirect to home after saving
         } catch (error) {
             alert('Failed to save medical record');
         }
@@ -53,8 +43,10 @@ function MedicalRecord() {
 
     const handleGPT = async () => {
         try {
-            const response = await getGPTResponse(localStorage.getItem('patientId'), medicalRecord);
-            setGptResponse(response);
+            const response = await axios.post(`http://localhost:8080/api/patient/${patientId}/medicalrecord/gpt`, medicalRecord, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            setGptResponse(response.data);
         } catch (error) {
             alert('Failed to get GPT response');
         }
@@ -62,66 +54,69 @@ function MedicalRecord() {
 
     const handleAzure = async () => {
         try {
-            const response = await getAzureResponse(localStorage.getItem('patientId'), medicalRecord);
-            setAzureResponse(response);
+            const response = await axios.post(`http://localhost:8080/api/patient/${patientId}/medicalrecord/azure`, medicalRecord, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            setAzureResponse(response.data);
         } catch (error) {
             alert('Failed to get Azure response');
         }
     };
 
     const handleBack = () => {
-        navigate('/home'); // Navigate back to Home
+        navigate('/home');
     };
 
     return (
         <div className="container">
             <div className="form-container">
-                <h2>Edit Medical Data</h2>
+                <h2>Enter New Medical Data</h2>
                 <form>
-                    {/* Form fields */}
                     <div>
                         <label>Gender:</label>
-                        <input type="text" name="gender" value={medicalRecord.gender} onChange={handleChange} required />
+                        <input type="text" name="gender" value={medicalRecord.gender} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>Age:</label>
-                        <input type="number" name="age" value={medicalRecord.age} onChange={handleChange} required />
+                        <input type="number" name="age" value={medicalRecord.age} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>Urea:</label>
-                        <input type="number" name="urea" value={medicalRecord.urea} onChange={handleChange} required />
+                        <input type="number" name="urea" value={medicalRecord.urea} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>Creatinine (Cr):</label>
-                        <input type="number" name="cr" value={medicalRecord.cr} onChange={handleChange} required />
+                        <input type="number" name="cr" value={medicalRecord.cr} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>HbA1c:</label>
-                        <input type="number" step="0.1" name="hba1c" value={medicalRecord.hba1c} onChange={handleChange} required />
+                        <input type="number" step="0.1" name="hba1c" value={medicalRecord.hba1c} onChange={handleChange}
+                               required/>
                     </div>
                     <div>
                         <label>Cholesterol (Chol):</label>
-                        <input type="number" name="chol" value={medicalRecord.chol} onChange={handleChange} required />
+                        <input type="number" name="chol" value={medicalRecord.chol} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>Triglycerides (TG):</label>
-                        <input type="number" name="tg" value={medicalRecord.tg} onChange={handleChange} required />
+                        <input type="number" name="tg" value={medicalRecord.tg} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>HDL:</label>
-                        <input type="number" name="hdl" value={medicalRecord.hdl} onChange={handleChange} required />
+                        <input type="number" name="hdl" value={medicalRecord.hdl} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>LDL:</label>
-                        <input type="number" name="ldl" value={medicalRecord.ldl} onChange={handleChange} required />
+                        <input type="number" name="ldl" value={medicalRecord.ldl} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>VLDL:</label>
-                        <input type="number" name="vldl" value={medicalRecord.vldl} onChange={handleChange} required />
+                        <input type="number" name="vldl" value={medicalRecord.vldl} onChange={handleChange} required/>
                     </div>
                     <div>
                         <label>BMI:</label>
-                        <input type="number" step="0.1" name="bmi" value={medicalRecord.bmi} onChange={handleChange} required />
+                        <input type="number" step="0.1" name="bmi" value={medicalRecord.bmi} onChange={handleChange}
+                               required/>
                     </div>
                 </form>
             </div>
@@ -146,11 +141,11 @@ function MedicalRecord() {
                         )}
                     </div>
                 </div>
-                <button type="button" onClick={handleSave}>Update Medical Record</button>
+                <button type="button" onClick={handleSave}>Save a new medical record</button>
                 <button type="button" className="back-button" onClick={handleBack}>Back to Home</button>
             </div>
         </div>
     );
 }
 
-export default MedicalRecord;
+export default NewMedicalRecord;

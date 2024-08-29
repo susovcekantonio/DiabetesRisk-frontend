@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 function Home() {
     const [medicalRecords, setMedicalRecords] = useState([]);

@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [patientId, setPatientId] = useState(null); // State to store patient ID
+    const [patientId, setPatientId] = useState(null);
     const navigate = useNavigate();
 
     const login = async (email, password) => {
@@ -15,25 +15,24 @@ export const AuthProvider = ({ children }) => {
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            // Check if response is successful and contains the id
+
             if (response.data && response.data.id) {
                 setIsAuthenticated(true);
-                setPatientId(response.data.id); // Store the patient ID
-                localStorage.setItem('patientId', response.data.id); // Optional: persist ID in localStorage
-                navigate('/home'); // Only navigate after setting the state
+                setPatientId(response.data.id);
+                localStorage.setItem('patientId', response.data.id);
+                navigate('/home');
             } else {
                 throw new Error('Invalid response format');
             }
         } catch (error) {
-            // Handle errors here
-            throw error; // Rethrow error to be handled by the calling component (Login.js)
+            throw error;
         }
     };
 
     const logout = () => {
         setIsAuthenticated(false);
-        setPatientId(null); // Clear patient ID on logout
-        localStorage.removeItem('patientId'); // Optionally clear patient ID from localStorage
+        setPatientId(null);
+        localStorage.removeItem('patientId');
         navigate('/auth');
     };
 

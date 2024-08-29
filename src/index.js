@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import { AuthProvider } from './AuthContext'; // Adjust the path as necessary
+import App from './components/App';
+import { AuthProvider } from './context/AuthContext'; // Adjust the path as necessary
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
+import './styles/App.css';
 
 ReactDOM.render(
     <Router>
