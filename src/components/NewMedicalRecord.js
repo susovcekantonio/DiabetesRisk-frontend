@@ -35,7 +35,7 @@ function NewMedicalRecord() {
                 headers: { 'Content-Type': 'application/json' }
             });
             alert('Medical record saved successfully');
-            navigate('/home'); // Redirect to home after saving
+            navigate('/home');
         } catch (error) {
             alert('Failed to save medical record');
         }
@@ -73,7 +73,7 @@ function NewMedicalRecord() {
                 <h2>Enter New Medical Data</h2>
                 <form>
                     <div>
-                        <label>Gender:</label>
+                        <label>Gender(F or M):</label>
                         <input type="text" name="gender" value={medicalRecord.gender} onChange={handleChange} required/>
                     </div>
                     <div>
@@ -81,36 +81,36 @@ function NewMedicalRecord() {
                         <input type="number" name="age" value={medicalRecord.age} onChange={handleChange} required/>
                     </div>
                     <div>
-                        <label>Urea:</label>
+                        <label>Urea(mmol/L):</label>
                         <input type="number" name="urea" value={medicalRecord.urea} onChange={handleChange} required/>
                     </div>
                     <div>
-                        <label>Creatinine (Cr):</label>
+                        <label>Creatinine (Cr)(µmol/L)pm star:</label>
                         <input type="number" name="cr" value={medicalRecord.cr} onChange={handleChange} required/>
                     </div>
                     <div>
-                        <label>HbA1c:</label>
+                        <label>HbA1c(%):</label>
                         <input type="number" step="0.1" name="hba1c" value={medicalRecord.hba1c} onChange={handleChange}
                                required/>
                     </div>
                     <div>
-                        <label>Cholesterol (Chol):</label>
+                        <label>Cholesterol (Chol)(mmol/L):</label>
                         <input type="number" name="chol" value={medicalRecord.chol} onChange={handleChange} required/>
                     </div>
                     <div>
-                        <label>Triglycerides (TG):</label>
+                        <label>Triglycerides (TG)(mmol/L):</label>
                         <input type="number" name="tg" value={medicalRecord.tg} onChange={handleChange} required/>
                     </div>
                     <div>
-                        <label>HDL:</label>
+                        <label>HDL(mmol/L):</label>
                         <input type="number" name="hdl" value={medicalRecord.hdl} onChange={handleChange} required/>
                     </div>
                     <div>
-                        <label>LDL:</label>
+                        <label>LDL(mmol/L):</label>
                         <input type="number" name="ldl" value={medicalRecord.ldl} onChange={handleChange} required/>
                     </div>
                     <div>
-                        <label>VLDL:</label>
+                        <label>VLD(mmol/L):</label>
                         <input type="number" name="vldl" value={medicalRecord.vldl} onChange={handleChange} required/>
                     </div>
                     <div>

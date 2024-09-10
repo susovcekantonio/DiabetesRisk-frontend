@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
-import axios from 'axios'; // Import axios
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { saveMedicalRecord, getGPTResponse, getAzureResponse } from '../api';
 
 function MedicalRecord() {
@@ -21,7 +21,7 @@ function MedicalRecord() {
     });
     const [gptResponse, setGptResponse] = useState('');
     const [azureResponse, setAzureResponse] = useState('');
-    const navigate = useNavigate(); // Hook to navigate
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMedicalRecord = async () => {
@@ -70,7 +70,7 @@ function MedicalRecord() {
     };
 
     const handleBack = () => {
-        navigate('/home'); // Navigate back to Home
+        navigate('/home');
     };
 
     return (
@@ -79,7 +79,7 @@ function MedicalRecord() {
                 <h2>Edit Medical Data</h2>
                 <form>
                     <div>
-                        <label>Gender:</label>
+                        <label>Gender(F or M):</label>
                         <input type="text" name="gender" value={medicalRecord.gender} onChange={handleChange} required />
                     </div>
                     <div>
@@ -87,35 +87,35 @@ function MedicalRecord() {
                         <input type="number" name="age" value={medicalRecord.age} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>Urea:</label>
+                        <label>Urea(mmol/L):</label>
                         <input type="number" name="urea" value={medicalRecord.urea} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>Creatinine (Cr):</label>
+                        <label>Creatinine (Cr) (µmol/L):</label>
                         <input type="number" name="cr" value={medicalRecord.cr} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>HbA1c:</label>
+                        <label>HbA1c(%):</label>
                         <input type="number" step="0.1" name="hba1c" value={medicalRecord.hba1c} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>Cholesterol (Chol):</label>
+                        <label>Cholesterol (Chol)(mmol/L):</label>
                         <input type="number" name="chol" value={medicalRecord.chol} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>Triglycerides (TG):</label>
+                        <label>Triglycerides (TG)(mmol/L):</label>
                         <input type="number" name="tg" value={medicalRecord.tg} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>HDL:</label>
+                        <label>HDL(mmol/L):</label>
                         <input type="number" name="hdl" value={medicalRecord.hdl} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>LDL:</label>
+                        <label>LDL(mmol/L):</label>
                         <input type="number" name="ldl" value={medicalRecord.ldl} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label>VLDL:</label>
+                        <label>VLDL(mmol/L):</label>
                         <input type="number" name="vldl" value={medicalRecord.vldl} onChange={handleChange} required />
                     </div>
                     <div>

@@ -11,6 +11,7 @@ function Register() {
     });
 
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,10 +22,9 @@ function Register() {
         e.preventDefault();
         try {
             await registerPatient(patient);
-            alert('Patient registered successfully');
-            navigate('/');
+            navigate('/login');
         } catch (error) {
-            alert('Failed to register patient');
+            setErrorMessage('Failed to register patient');
         }
     };
 
@@ -49,6 +49,11 @@ function Register() {
                 </div>
                 <button type="submit">Register</button>
             </form>
+            {errorMessage && (
+                <div style={{ color: 'red', marginTop: '10px' }}>
+                    {errorMessage}
+                </div>
+            )}
         </div>
     );
 }
